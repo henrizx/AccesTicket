@@ -1,0 +1,36 @@
+<!-- tickets/templates/tickets/index.html -->
+{% extends 'tickets/base.html' %}
+
+{% block title %}Lista de Tickets{% endblock %}
+
+{% block content %}
+<h1>Tickets</h1>
+<a href="{% url 'ticket_create' %}" class="btn btn-primary mb-3">Novo Ticket</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Empresa</th>
+            <th>Prioridade</th>
+            <th>Status</th>
+            <th>Descrição</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for ticket in tickets %}
+        <tr>
+            <td>{{ ticket.id }}</td>
+            <td>{{ ticket.company }}</td>
+            <td>{{ ticket.priority }}</td>
+            <td>{{ ticket.status }}</td>
+            <td>{{ ticket.description|truncatechars:50 }}</td>
+            <td>
+                <a href="{% url 'ticket_detail' ticket.id %}" class="btn btn-sm btn-info">Ver</a>
+                <a href="{% url 'ticket_edit' ticket.id %}" class="btn btn-sm btn-warning">Editar</a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

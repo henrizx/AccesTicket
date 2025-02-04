@@ -1,0 +1,29 @@
+<!-- tickets/templates/tickets/ticket_detail.html -->
+{% extends 'tickets/base.html' %}
+
+{% block title %}Detalhe do Ticket{% endblock %}
+
+{% block content %}
+<h1>Detalhe do Ticket #{{ ticket.id }}</h1>
+<p><strong>Empresa:</strong> {{ ticket.company }}</p>
+<p><strong>Criado por:</strong> {{ ticket.created_by }}</p>
+<p><strong>Prioridade:</strong> {{ ticket.priority }}</p>
+<p><strong>Status:</strong> {{ ticket.status }}</p>
+<p><strong>Categoria:</strong> {{ ticket.category }}</p>
+<p><strong>Descrição:</strong> {{ ticket.description }}</p>
+
+<hr>
+<h3>Histórico</h3>
+<ul class="list-group">
+  {% for history in ticket.histories.all %}
+    <li class="list-group-item">
+      <strong>{{ history.user }}</strong> em {{ history.created_at|date:"d/m/Y H:i" }}:
+      <br>
+      {{ history.comment }} <br>
+      <em>Status atualizado para: {{ history.status }}</em>
+    </li>
+  {% empty %}
+    <li class="list-group-item">Sem histórico.</li>
+  {% endfor %}
+</ul>
+{% endblock %}
