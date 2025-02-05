@@ -62,9 +62,10 @@ WSGI_APPLICATION = 'ticket_platform.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.oracle',
-        'NAME': 'orcl',           # Nome do seu serviço Oracle
-        'USER': 'meu_usuario',    # Substitua pelo seu usuário Oracle
-        'PASSWORD': 'minha_senha',# Substitua pela sua senha
+        'NAME': '(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521))(CONNECT_DATA=(SID=XEPDB1)))'
+,           # Nome do seu serviço Oracle
+        'USER': 'system',    # Substitua pelo seu usuário Oracle
+        'PASSWORD': 'sysoracle',# Substitua pela sua senha
         'HOST': 'localhost',
         'PORT': '1521',
     }
@@ -80,6 +81,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     # Outros validadores, se desejado
 ]
+# Definir o tipo padrão de chave primária
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LANGUAGE_CODE = 'pt-br'
 TIME_ZONE = 'America/Sao_Paulo'
@@ -88,7 +91,9 @@ USE_TZ = True
 
 # Arquivos estáticos
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
 
 # Configuração do Django REST Framework e filtragem
 REST_FRAMEWORK = {
